@@ -22,17 +22,19 @@ public class JogadorController {
     @Autowired
     JogadorRepository rep;
 
-    @PostMapping("/")
+    @PostMapping("/jogador")
     public ResponseEntity<Jogador> createJogador(@RequestBody Jogador jo){
+
         try{
-            Jogador a = rep.save(new Jogador(jo.getNome(),jo.getEmail(),jo.getDataNasc()));
+            Jogador a = rep.save(new Jogador(jo.getNome(),jo.getEmail(),jo.getDatanasc()));
             return new ResponseEntity<>(a, HttpStatus.CREATED);
         }catch(Exception e ){
+            System.out.println(e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @GetMapping("/")
+    @GetMapping("/jogador")
     public ResponseEntity<List<Jogador> > getAllJogador(@RequestParam(required = false) String nome){
         try{
             List<Jogador> la = new ArrayList<Jogador>();
@@ -58,7 +60,7 @@ public class JogadorController {
             Jogador jo = data.get();
             jo.setNome(jo.getNome());
             jo.setEmail(jo.getEmail());
-            jo.setDataNasc(jo.getDataNasc());
+            jo.setDatanasc(jo.getDatanasc());
 
             return new ResponseEntity<>(rep.save(jo), HttpStatus.OK);
         }
