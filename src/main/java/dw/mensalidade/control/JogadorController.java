@@ -52,15 +52,15 @@ public class JogadorController {
         }
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/jogador/{id}")
     public ResponseEntity<Jogador> updateJogador(@PathVariable("id") long id, @RequestBody Jogador a){
         Optional<Jogador> data = rep.findById(id);
 
         if(data.isPresent()){
             Jogador jo = data.get();
-            jo.setNome(jo.getNome());
-            jo.setEmail(jo.getEmail());
-            jo.setDatanasc(jo.getDatanasc());
+            jo.setNome(a.getNome());
+            jo.setEmail(a.getEmail());
+            jo.setDatanasc(a.getDatanasc());
 
             return new ResponseEntity<>(rep.save(jo), HttpStatus.OK);
         }
@@ -68,7 +68,7 @@ public class JogadorController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/jogador/{id}")
     public ResponseEntity<HttpStatus> deleteJogador(@PathVariable("id")long id){
         try{
             rep.deleteById(id);
