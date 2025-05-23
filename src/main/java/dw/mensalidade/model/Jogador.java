@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.CascadeType;
@@ -36,6 +37,7 @@ public class Jogador {
     private LocalDate datanasc;
 
     @OneToMany(mappedBy = "jogador", fetch = FetchType.LAZY, cascade = {CascadeType.DETACH})
+    @JsonIgnore
     private List<Pagamento> pagamentos;
 
     public Jogador(){
@@ -90,4 +92,13 @@ public class Jogador {
     public LocalDate getDatanasc(){
         return datanasc;
     }
+
+    public List<Pagamento> getPagamentos() {
+    return pagamentos;
+    }
+
+    public void setPagamentos(List<Pagamento> pagamentos) {
+        this.pagamentos = pagamentos;
+    }
+
 }

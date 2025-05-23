@@ -1,5 +1,8 @@
 package dw.mensalidade.model;
 
+
+
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -41,11 +44,21 @@ public class Pagamento {
         this.jogador = jogador;
     }
 
+     public Pagamento(float valor,Jogador jogador, int mes,int ano){
+    
+        this.valor = valor;
+        this.jogador = jogador;
+        this.mes = mes;
+        this.ano = ano;
+        
+    }
+
     public Pagamento(long id){
         this.id = id;
     }
 
     public Pagamento(long id,Jogador jogador){
+        this.id = id;
         this.jogador = jogador;
     }
 
@@ -77,7 +90,7 @@ public class Pagamento {
     }
 
     public float getValor(){
-        return ano;
+        return valor;
     }
 
     //jogador

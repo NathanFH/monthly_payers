@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import dw.mensalidade.repository.JogadorRepository;
+import dw.mensalidade.repository.PagamentoRepository;
 import dw.mensalidade.model.Jogador;
 
 @RestController
@@ -21,6 +22,9 @@ public class JogadorController {
     
     @Autowired
     JogadorRepository rep;
+
+    @Autowired
+    PagamentoRepository pagamentoRepository;
 
     @PostMapping("/jogador")
     public ResponseEntity<Jogador> createJogador(@RequestBody Jogador jo){
@@ -71,8 +75,17 @@ public class JogadorController {
     @DeleteMapping("/jogador/{id}")
     public ResponseEntity<HttpStatus> deleteJogador(@PathVariable("id")long id){
         try{
-            rep.deleteById(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            Optional<Jogador> optionalJogador = rep.findById(id);
+
+            if (optionalJogador.isPresent()) {
+                Jogador jogador = optionalJogador.get();
+                jogador.getPagamentos().forEach(p -> pagamentoRepository.deleteById(p.getId()));
+                rep.deleteById(id);
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+            }else{
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
         } catch(Exception e ){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
