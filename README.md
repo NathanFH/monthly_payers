@@ -1,5 +1,5 @@
-Nathan Fernandes Henrique
-Victor Kobinski e Silva
+Nathan Fernandes Henrique,
+Victor Kobinski e Silva,
 Raí Tobias da Veiga Almeida
 
 O projeto se trata de uma API para ter controle de mensalidades de jogos de futebol, nele temos duas tabelas, jogador com nome, data de nascimento e email e pagamento com ano, mês, valor e cod_jogador
